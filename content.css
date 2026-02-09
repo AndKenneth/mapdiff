@@ -1,0 +1,130 @@
+/* --- Shrink percent-value so badge fits beside it --- */
+.percent-value:has(+ .mapdiff-badge) {
+  width: auto !important;
+}
+
+/* --- Diff badge: plain text beside the win rate --- */
+.mapdiff-badge {
+  font-family: Config, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 8px;
+  vertical-align: baseline;
+  letter-spacing: 0.01em;
+}
+
+.mapdiff-badge.positive {
+  color: #0a7a45;
+}
+
+.mapdiff-badge.negative {
+  color: #a3153e;
+}
+
+.mapdiff-badge.neutral {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+/* --- Hero cell layout override for map rows --- */
+div.hero-cell:has(.mapdiff-maps) {
+  flex-wrap: wrap !important;
+  height: auto !important;
+  min-height: 78px;
+  align-content: center;
+}
+
+/* --- Best/Worst maps under hero name --- */
+.mapdiff-maps {
+  flex-basis: 100%;
+  padding-left: 70px;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-family: Config, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.mapdiff-maps-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.mapdiff-maps-label {
+  width: 10px;
+  flex-shrink: 0;
+  font-weight: 600;
+  font-size: 9px;
+  text-align: center;
+}
+
+.mapdiff-maps-label.best {
+  color: #0a7a45;
+}
+
+.mapdiff-maps-label.worst {
+  color: #a3153e;
+}
+
+.mapdiff-maps-entries {
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+}
+
+.mapdiff-map-entry {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.mapdiff-map-entry::before {
+  content: "·";
+  color: rgba(0, 0, 0, 0.2);
+  margin: 0 5px;
+}
+
+.mapdiff-map-entry:first-child::before {
+  display: none;
+}
+
+.mapdiff-map-name {
+  color: rgba(0, 0, 0, 0.55);
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mapdiff-map-name:hover {
+  color: rgba(0, 0, 0, 0.85);
+  text-decoration: underline;
+}
+
+.mapdiff-map-diff {
+  font-weight: 600;
+}
+
+.mapdiff-map-diff.best {
+  color: #0a7a45;
+}
+
+.mapdiff-map-diff.worst {
+  color: #a3153e;
+}
+
+/* --- Loading state --- */
+.mapdiff-loading {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 11px;
+  font-style: italic;
+  font-family: Config, sans-serif;
+  padding-left: 70px;
+  flex-basis: 100%;
+  margin-top: 3px;
+}
+
+/* Sort toggle styles are injected into the shadow DOM via JS */

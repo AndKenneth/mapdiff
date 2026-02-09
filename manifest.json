@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Map Diff",
+  "version": "1.0.0",
+  "description": "Shows win rate differences per map on the Overwatch Hero Statistics page",
+  "permissions": [],
+  "host_permissions": [
+    "https://overwatch.blizzard.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://overwatch.blizzard.com/en-us/rates/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
