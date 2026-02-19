@@ -22,28 +22,52 @@
 }
 
 .mapdiff-badge.neutral {
-  color: rgba(0, 0, 0, 0.3);
+  color: #000;
 }
 
-/* --- Hero cell layout override for map rows --- */
-div.hero-cell:has(.mapdiff-maps) {
-  flex-wrap: wrap !important;
-  height: auto !important;
-  min-height: 78px;
-  align-content: center;
-}
-
-/* --- Best/Worst maps under hero name --- */
+/* --- Best/Worst maps under progress bars --- */
 .mapdiff-maps {
-  flex-basis: 100%;
-  padding-left: 70px;
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
+  margin-top: 6px;
   font-family: Config, sans-serif;
   font-size: 11px;
   line-height: 1.5;
+  overflow: hidden;
+}
+
+/* Collapsed: show top/bottom 3 */
+.mapdiff-maps-collapsed {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  cursor: pointer;
+}
+
+.mapdiff-maps-open .mapdiff-maps-collapsed {
+  display: none;
+}
+
+/* Expanded: full ranked list */
+.mapdiff-maps-expanded {
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  cursor: pointer;
+}
+
+.mapdiff-maps-open .mapdiff-maps-expanded {
+  display: flex;
+}
+
+.mapdiff-maps-expanded .mapdiff-maps-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 1px 0;
+}
+
+.mapdiff-maps-expanded .mapdiff-map-diff.neutral {
+  color: rgba(0, 0, 0, 0.35);
 }
 
 .mapdiff-maps-row {
@@ -52,6 +76,8 @@ div.hero-cell:has(.mapdiff-maps) {
   gap: 0;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .mapdiff-maps-label {
@@ -104,6 +130,13 @@ div.hero-cell:has(.mapdiff-maps) {
   text-decoration: underline;
 }
 
+/* Highlight current map in top/bottom lists */
+.mapdiff-map-name.mapdiff-current-map {
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.85);
+  text-decoration: underline;
+}
+
 .mapdiff-map-diff {
   font-weight: 600;
 }
@@ -116,15 +149,273 @@ div.hero-cell:has(.mapdiff-maps) {
   color: #a3153e;
 }
 
-/* --- Loading state --- */
+
+/* --- Skeleton loading state --- */
 .mapdiff-loading {
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 11px;
-  font-style: italic;
-  font-family: Config, sans-serif;
-  padding-left: 70px;
   flex-basis: 100%;
+  padding-left: 70px;
   margin-top: 3px;
+}
+
+.mapdiff-skeleton {
+  display: inline-block;
+  width: 180px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.06) 25%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.06) 75%);
+  background-size: 200% 100%;
+  animation: mapdiff-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes mapdiff-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* --- Progress bar average marker --- */
+.mapdiff-avg-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Map Outlier Bar --- */
+.mapdiff-outlier-bar {
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px 18px 12px;
+  margin-bottom: 10px;
+  font-family: Config, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Header */
+.mapdiff-ob-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.mapdiff-ob-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+
+.mapdiff-ob-traits {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.mapdiff-ob-traits-group {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.mapdiff-ob-traits-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-right: 2px;
+}
+
+.mapdiff-ob-trait {
+  white-space: nowrap;
+}
+
+.mapdiff-ob-trait-val.best {
+  color: #4ade80;
+  font-weight: 600;
+  margin-left: 1px;
+}
+
+.mapdiff-ob-trait-val.worst {
+  color: #f87171;
+  font-weight: 600;
+  margin-left: 1px;
+}
+
+.mapdiff-ob-trait-sep {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.mapdiff-ob-traits-divider {
+  color: rgba(255, 255, 255, 0.2);
+  margin: 0 6px;
+  font-size: 14px;
+}
+
+/* Role columns */
+.mapdiff-ob-roles {
+  display: flex;
+  gap: 12px;
+}
+
+.mapdiff-ob-role-col {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.mapdiff-ob-role-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mapdiff-ob-role-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+}
+
+/* Section labels */
+.mapdiff-ob-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+
+.mapdiff-ob-section-label.best {
+  color: #4ade80;
+}
+
+.mapdiff-ob-section-label.worst {
+  color: #f87171;
+}
+
+.mapdiff-ob-section-label:first-of-type {
+  margin-top: 0;
+}
+
+/* Winner/loser rows */
+.mapdiff-ob-winners,
+.mapdiff-ob-losers {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mapdiff-ob-winners {
+  margin-bottom: 2px;
+}
+
+/* Hero chip */
+.mapdiff-ob-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px 2px 2px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.15s;
+  min-width: 0;
+}
+
+.mapdiff-ob-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mapdiff-ob-portrait {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mapdiff-ob-chip-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+
+.mapdiff-ob-chip-diff {
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.mapdiff-ob-chip-diff.best {
+  color: #4ade80;
+}
+
+.mapdiff-ob-chip-diff.worst {
+  color: #f87171;
+}
+
+/* Ban row */
+.mapdiff-ob-ban {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mapdiff-ob-ban-label {
+  font-weight: 600;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.mapdiff-ob-ban-heroes {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.mapdiff-ob-ban-heroes .mapdiff-ob-chip {
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.15);
+}
+
+.mapdiff-ob-ban-heroes .mapdiff-ob-chip:hover {
+  background: rgba(248, 113, 113, 0.15);
 }
 
 /* Sort toggle styles are injected into the shadow DOM via JS */

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <div class="header">
+      <h1>Map Diff</h1>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="features">Features</button>
+      <button class="tab" data-tab="herotags">Hero Tags</button>
+    </div>
+    <div class="panel" id="panel-features"></div>
+    <div class="panel hidden" id="panel-herotags">
+      <div class="tag-legend" id="tag-legend"></div>
+      <div id="hero-grid"></div>
+      <button class="reset-btn" id="reset-tags">Reset to defaults</button>
+    </div>
+  </div>
+  <script src="defaults.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

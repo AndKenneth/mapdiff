@@ -1,0 +1,19 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor artifacts
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Build / packaging artifacts
+*.zip
+*.crx
+*.pem
+web-ext-artifacts/
+
+# Research notes
+notes/
