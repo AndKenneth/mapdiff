@@ -6,7 +6,7 @@ Select a specific map and Map Diff computes the difference between each hero's s
 
 ## Installation (Sideloading)
 
-Chrome extensions that aren't on the Web Store can be installed manually by loading them in developer mode.
+Because chrome webstore takes a while to get approval, you might want to sideload this to test it out. I definitely don't recommend making a habit of this sort of thing, but the code is all here and you're welcome to ask your favourite chatbot (or developer freind, but trust me, they're using the chatbot) if theres anything sussy about it.
 
 1. **Download the extension**
 
@@ -29,7 +29,7 @@ Chrome extensions that aren't on the Web Store can be installed manually by load
 
 ## How It Works
 
-Map Diff runs entirely in your browser. It reads hero data from the page, fetches the all-maps baseline (cached for 5 minutes), computes diffs, and injects the UI. 
+Map Diff runs entirely in your browser and only on the overwatch stats website. It reads hero data from the page, fetches the all-maps baseline, computes diffs, and injects the UI. 
 
 ## Permissions
 
