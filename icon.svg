@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a3f4b"/>
+      <stop offset="100%" stop-color="#1a1d24"/>
+    </linearGradient>
+    <linearGradient id="border" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF9C00"/>
+      <stop offset="100%" stop-color="#E88A00"/>
+    </linearGradient>
+  </defs>
+  <!-- Hexagonal shield shape -->
+  <path d="M64 4 L118 28 L118 80 L64 124 L10 80 L10 28 Z"
+        fill="url(#bg)" stroke="url(#border)" stroke-width="6" stroke-linejoin="round"/>
+  <!-- Up arrow (green) - left side, bolder -->
+  <polygon points="44,32 58,54 50,54 50,92 38,92 38,54 30,54"
+           fill="#22C55E"/>
+  <!-- Down arrow (red) - right side, bolder -->
+  <polygon points="84,96 70,74 78,74 78,36 90,36 90,74 98,74"
+           fill="#EF4444"/>
+</svg>

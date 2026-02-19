@@ -146,7 +146,7 @@
       .querySelectorAll(
         ".mapdiff-badge, .mapdiff-maps, " +
         ".mapdiff-loading, .mapdiff-avg-marker, " +
-        ".mapdiff-outlier-bar"
+        ".mapdiff-outlier-bar, .mapdiff-error"
       )
       .forEach((el) => el.remove());
     // Also clean up sort UI from shadow DOM
@@ -549,6 +549,26 @@
     rateCell.appendChild(container);
   }
 
+  // ── Error state ──
+
+  function showError() {
+    const existing = document.querySelector(".mapdiff-error");
+    if (existing) existing.remove();
+
+    const table = document.querySelector(TABLE_SELECTOR);
+    if (!table?.parentElement) return;
+
+    const el = document.createElement("div");
+    el.className = "mapdiff-error";
+    el.textContent = "Unable to load map data. Check your connection and refresh.";
+    table.parentElement.insertBefore(el, table);
+  }
+
+  function removeError() {
+    const el = document.querySelector(".mapdiff-error");
+    if (el) el.remove();
+  }
+
   // ── Loading state ──
 
   function showLoading(heroId) {
@@ -780,7 +800,9 @@
     // Phase 1: Diff badges (current map vs all-maps)
     if (currentMap !== "all-maps") {
       const allMapsData = await fetchMapDataCached("all-maps");
-      if (allMapsData) {
+      if (!allMapsData) {
+        showError();
+      } else {
         for (const heroId of heroIds) {
           const cur = currentData[heroId];
           const avg = allMapsData[heroId];
@@ -820,6 +842,7 @@
     const allMapsBaseline = await fetchMapDataCached("all-maps");
     if (!allMapsBaseline) {
       for (const heroId of heroIds) removeLoading(heroId);
+      showError();
       return;
     }
 
